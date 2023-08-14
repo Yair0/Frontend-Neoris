@@ -1,0 +1,9 @@
+.car-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.car-detail h3 {
+  margin: 0;
+}

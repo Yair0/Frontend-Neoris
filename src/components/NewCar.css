@@ -1,0 +1,19 @@
+.add-car-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-car-container .form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.add-car-container .form > div {
+  flex: 1;
+}
+
+.button-container {
+  display: flex;
+  justify-content: right;
+}

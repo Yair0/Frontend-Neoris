@@ -1,0 +1,16 @@
+.table-container table {
+  min-width: 650px;
+}
+
+.table-container tbody tr.selected {
+  background-color: darkseagreen;
+}
+
+.table-container tbody tr td {
+  cursor: pointer;
+}
+
+.table-container tbody tr:last-child td {
+  border: 0;
+  cursor: pointer;
+}
