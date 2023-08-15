@@ -7,13 +7,23 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.add-car-container .form > div {
-  flex: 1;
+.add-car-container .form .small {
+  flex: 1 1 10%;
+}
+
+.add-car-container .form .medium {
+  flex: 2 2 25%;
+}
+
+.add-car-container .form .large {
+  flex: 4 4 45%;
 }
 
 .button-container {
   display: flex;
   justify-content: right;
+  gap: 8px;
 }

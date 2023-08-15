@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NewCar.css";
 import { Car } from "../utils/types";
 import Button from "@mui/material/Button";
@@ -15,7 +15,7 @@ const emptyNewCar: Car = {
   model: "",
   package: "",
   color: "",
-  year: 0,
+  year: 2020,
   category: "",
   mileage: 0,
   price: 0,
@@ -35,9 +35,13 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
   const [newCar, setNewCar] = useState<Car>(emptyNewCar);
   const [addCarState, setAddCarState] = useState<addCarState>({
     error: "",
-    form: true,
+    form: false,
     isLoading: false,
   });
+
+  useEffect(() => {
+    return () => setNewCar(emptyNewCar);
+  }, [addCarState.form]);
 
   const handleUuidChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setNewCar((state) => ({ ...state, uuid: e.target.value }));
@@ -74,6 +78,8 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
       );
   };
 
+  const cancel = () => setAddCarState((state) => ({ ...state, form: false }));
+
   return addCarState.form ? (
     <div className="add-car-container">
       <h2>New Car Form</h2>
@@ -82,6 +88,7 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
           id="standard-basic"
           label="ID"
           variant="standard"
+          className="small"
           inputProps={{ maxLength: 7 }}
           value={newCar.uuid}
           onChange={handleUuidChange}
@@ -90,6 +97,7 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
           id="standard-basic"
           label="Make"
           variant="standard"
+          className="medium"
           value={newCar.make}
           onChange={handleMakeChange}
         />
@@ -97,6 +105,7 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
           id="standard-basic"
           label="Model"
           variant="standard"
+          className="medium"
           value={newCar.model}
           onChange={handleModelChange}
         />
@@ -104,6 +113,7 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
           id="standard-basic"
           label="Package"
           variant="standard"
+          className="medium"
           value={newCar.package}
           onChange={handlePackageChange}
         />
@@ -111,10 +121,35 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
           id="standard-basic"
           label="Color"
           variant="standard"
+          className="medium"
           value={newCar.color}
           onChange={handleColorChange}
         />
-        <FormControl>
+        <TextField
+          id="standard-basic"
+          label="mileage"
+          value={newCar.mileage}
+          onChange={handleMileageChange}
+          variant="standard"
+          className="medium"
+          type="number"
+          InputProps={{
+            endAdornment: <InputAdornment position="end">mi</InputAdornment>,
+          }}
+        />
+        <TextField
+          id="standard-basic"
+          label="Price (Cents)"
+          value={newCar.price}
+          onChange={handlePriceChange}
+          variant="standard"
+          className="medium"
+          type="number"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">¢</InputAdornment>,
+          }}
+        />
+        <FormControl className="large">
           <InputLabel id="year-select">Year</InputLabel>
           <Select
             labelId="year-select"
@@ -128,12 +163,12 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
             <MenuItem value={"2023"}>2023</MenuItem>
           </Select>
         </FormControl>
-        <FormControl>
+        <FormControl className="large">
           <InputLabel id="category-select">Category</InputLabel>
           <Select
             labelId="category-select"
             value={newCar.category}
-            label="Year"
+            label="Category"
             onChange={handleCategorySelect}
           >
             <MenuItem value={"Hatchback"}>Hatchback</MenuItem>
@@ -142,29 +177,11 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
             <MenuItem value={"SUV"}>SUV</MenuItem>
           </Select>
         </FormControl>
-        <TextField
-          id="standard-basic"
-          label="mileage"
-          value={newCar.mileage}
-          onChange={handleMileageChange}
-          variant="standard"
-          type="number"
-          InputProps={{
-            endAdornment: <InputAdornment position="end">mi</InputAdornment>,
-          }}
-        />
-        <TextField
-          id="standard-basic"
-          label="Price (Cents)"
-          value={newCar.price}
-          onChange={handlePriceChange}
-          variant="standard"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">¢</InputAdornment>,
-          }}
-        />
       </div>
       <div className="button-container">
+        <Button variant="outlined" onClick={cancel}>
+          Cancel
+        </Button>
         <Button variant="contained" onClick={submit}>
           Submit Car
         </Button>
