@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./NewCar.css";
 import { Car } from "../utils/types";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputAdornment from "@mui/material/InputAdornment";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const emptyNewCar: Car = {
   uuid: "",
@@ -63,7 +64,7 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
     setNewCar((state) => ({ ...state, price: parseInt(e.target.value) }));
 
   const submit = () => {
-    setAddCarState((state) => ({ ...state, isLoading: true }));
+    setAddCarState((state) => ({ ...state, error: "", isLoading: true }));
     fetch("http://localhost:8082/cars", {
       method: "POST",
       body: JSON.stringify(newCar),
@@ -71,18 +72,30 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
         "Content-Type": "application/json",
       },
     })
-      .then(() => pushCar(newCar))
-      .catch((error) => setAddCarState((state) => ({ ...state, error })))
+      .then(async (res) => {
+        if (res.ok) {
+          pushCar(newCar);
+          setAddCarState((state) => ({ ...state, form: false }));
+        } else {
+          const error = await res.json().then((e) => e.message);
+          setAddCarState((state) => ({ ...state, error }));
+        }
+      })
       .finally(() =>
-        setAddCarState((state) => ({ ...state, form: false, isLoading: false }))
+        setAddCarState((state) => ({ ...state, isLoading: false }))
       );
   };
 
   const cancel = () => setAddCarState((state) => ({ ...state, form: false }));
-
+  console.log({ addCarState });
   return addCarState.form ? (
     <div className="add-car-container">
       <h2>New Car Form</h2>
+      {!!addCarState.error && (
+        <Alert className="alert" severity="error">
+          {addCarState.error}
+        </Alert>
+      )}
       <div className="form">
         <TextField
           id="standard-basic"

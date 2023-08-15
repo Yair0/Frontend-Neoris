@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.add-car-container .alert {
+  margin-bottom: 1rem;
+}
+
 .add-car-container .form {
   display: flex;
   gap: 1rem;
