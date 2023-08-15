@@ -31,9 +31,17 @@ function App() {
   useEffect(() => {
     setCarsState((state) => ({ ...state, isLoading: true }));
     fetch("http://localhost:8082/cars")
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        const error = await res.json().then((e) => e.message);
+        throw new Error(error);
+      })
       .then(({ cars }) => setCarsState((state) => ({ ...state, cars })))
-      .catch((error) => setCarsState((state) => ({ ...state, error })))
+      .catch(({ message }) =>
+        setCarsState((state) => ({ ...state, error: message }))
+      )
       .finally(() => setCarsState((state) => ({ ...state, isLoading: false })));
   }, []);
 

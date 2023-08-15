@@ -74,13 +74,18 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
     })
       .then(async (res) => {
         if (res.ok) {
-          pushCar(newCar);
-          setAddCarState((state) => ({ ...state, form: false }));
-        } else {
-          const error = await res.json().then((e) => e.message);
-          setAddCarState((state) => ({ ...state, error }));
+          return res.json();
         }
+        const error = await res.json().then((e) => e.message);
+        throw new Error(error);
       })
+      .then(() => {
+        pushCar(newCar);
+        setAddCarState((state) => ({ ...state, form: false }));
+      })
+      .catch(({ message }) =>
+        setAddCarState((state) => ({ ...state, error: message }))
+      )
       .finally(() =>
         setAddCarState((state) => ({ ...state, isLoading: false }))
       );
