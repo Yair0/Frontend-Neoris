@@ -8,14 +8,32 @@ interface CarSelectedProps {
 
 export const CarSelected = ({ carSelected }: CarSelectedProps) => (
   <div className="car-detail">
-    <h3>ID: {carSelected?.uuid}</h3>
-    <h3>Make: {carSelected?.make}</h3>
-    <h3>Model: {carSelected?.model}</h3>
-    <h3>Package: {carSelected?.package}</h3>
-    <h3>Color: {carSelected?.color}</h3>
-    <h3>Year: {carSelected?.year}</h3>
-    <h3>Category: {carSelected?.category}</h3>
-    <h3>Mileage: {carSelected?.mileage}</h3>
-    <h3>Price: {carSelected?.price}</h3>
+    <div>
+      <h4 className="small">ID:</h4> <p>{carSelected?.uuid}</p>
+    </div>
+    <div>
+      <h4 className="medium">Make:</h4> <p>{carSelected?.make}</p>
+    </div>
+    <div>
+      <h4 className="medium">Model:</h4> <p>{carSelected?.model}</p>
+    </div>
+    <div>
+      <h4 className="medium">Package:</h4> <p>{carSelected?.package}</p>
+    </div>
+    <div>
+      <h4 className="medium">Color:</h4> <p>{carSelected?.color}</p>
+    </div>
+    <div>
+      <h4 className="small">Year:</h4> <p>{carSelected?.year}</p>
+    </div>
+    <div>
+      <h4 className="medium">Category:</h4> <p>{carSelected?.category}</p>
+    </div>
+    <div>
+      <h4 className="medium">Mileage:</h4> <p>{carSelected?.mileage}</p>
+    </div>
+    <div>
+      <h4 className="medium">Price:</h4> <p>{carSelected?.price}</p>
+    </div>
   </div>
 );

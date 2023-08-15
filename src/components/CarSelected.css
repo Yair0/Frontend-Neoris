@@ -1,9 +1,14 @@
 .car-detail {
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.car-detail h3 {
+.car-detail h4,
+.car-detail p {
   margin: 0;
+}
+
+.car-detail > div {
+  flex: 1;
 }
