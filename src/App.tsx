@@ -46,13 +46,6 @@ function App() {
       <CssBaseline />
       <div className="container">
         <div>
-          <h1>Car Detail</h1>
-          {!carSelected && (
-            <p>Select a car on table to see more details about it</p>
-          )}
-          {carSelected && <CarSelected carSelected={carSelected} />}
-        </div>
-        <div>
           <h1>Cars</h1>
           {carsState.isLoading ? (
             <CircularProgress />
@@ -64,6 +57,14 @@ function App() {
             />
           )}
           <NewCar pushCar={pushCar} />
+        </div>
+        <div>
+          <h1>Car Detail</h1>
+          {carSelected ? (
+            <CarSelected carSelected={carSelected} />
+          ) : (
+            <p>Select a car on table to see more details about it</p>
+          )}
         </div>
       </div>
     </ThemeProvider>
