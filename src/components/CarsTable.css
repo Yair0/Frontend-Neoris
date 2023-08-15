@@ -11,6 +11,18 @@
 }
 
 .table-container tbody tr:last-child td {
-  border: 0;
+  border-bottom: 0;
   cursor: pointer;
+}
+
+.table-container .small {
+  width: 10%;
+  position: sticky;
+  left: 0;
+  background: #1a1a1a;
+}
+
+.table-container .large {
+  width: 30%;
+  text-align: center;
 }

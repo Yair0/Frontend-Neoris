@@ -20,10 +20,10 @@ export const CarsTable = ({ cars, onSelect, carSelected }: CarsTableProps) => (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>ID</TableCell>
-          <TableCell>Make</TableCell>
-          <TableCell>Model</TableCell>
-          <TableCell>Year</TableCell>
+          <TableCell className="small">ID</TableCell>
+          <TableCell className="large">Make</TableCell>
+          <TableCell className="large">Model</TableCell>
+          <TableCell className="large">Year</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -32,10 +32,18 @@ export const CarsTable = ({ cars, onSelect, carSelected }: CarsTableProps) => (
             key={i}
             className={car.uuid === carSelected?.uuid ? "selected" : ""}
           >
-            <TableCell onClick={() => onSelect(car)}>{car.uuid}</TableCell>
-            <TableCell onClick={() => onSelect(car)}>{car.make}</TableCell>
-            <TableCell onClick={() => onSelect(car)}>{car.model}</TableCell>
-            <TableCell onClick={() => onSelect(car)}>{car.year}</TableCell>
+            <TableCell className="small" onClick={() => onSelect(car)}>
+              {car.uuid}
+            </TableCell>
+            <TableCell className="large" onClick={() => onSelect(car)}>
+              {car.make}
+            </TableCell>
+            <TableCell className="large" onClick={() => onSelect(car)}>
+              {car.model}
+            </TableCell>
+            <TableCell className="large" onClick={() => onSelect(car)}>
+              {car.year}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
