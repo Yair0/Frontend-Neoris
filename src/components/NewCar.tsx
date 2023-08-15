@@ -89,7 +89,7 @@ export const NewCar = ({ pushCar }: NewCarProps) => {
           label="ID"
           variant="standard"
           className="small"
-          inputProps={{ maxLength: 7 }}
+          inputProps={{ maxLength: 9 }}
           value={newCar.uuid}
           onChange={handleUuidChange}
         />
